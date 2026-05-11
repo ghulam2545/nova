@@ -13,7 +13,7 @@ async def get_schemas():
 
 @router.get("/schemas/{schema_name}/tables")
 async def get_tables(schema_name: str):
-    pass
+    return manager.get_tables(schema_name)
 
 
 @router.get("/schemas/{schema_name}/tables/{table_name}/ddl")

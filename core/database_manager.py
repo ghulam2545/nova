@@ -1,18 +1,23 @@
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import os
-from core.queries import GET_SCHEMA_QUERY
+from core.queries import GET_SCHEMA_QUERY, GET_TABLES_QUERY
+from dotenv import load_dotenv
 
+load_dotenv()
+
+DATABASE_CONFIG = {
+    "dbname": os.getenv("DATABASE_NAME", "master"),
+    "user": os.getenv("DATABASE_USER", "postgres"),
+    "password": os.getenv("DATABASE_PASSWORD", ""),
+    "host": os.getenv("DATABASE_HOST", "localhost"),
+    "port": os.getenv("DATABASE_PORT", "5432"),
+}
 
 class DatabaseManager:
     def __init__(self):
-        self.conn_params = {
-            "dbname": os.getenv("DATABASE_NAME", "master"),
-            "user": os.getenv("DATABASE_USER", "postgres"),
-            "password": os.getenv("DATABASE_PASSWORD", "ghulam"),
-            "host": os.getenv("DATABASE_HOST", "localhost"),
-            "port": os.getenv("DATABASE_PORT", "5432")
-        }
+        self.config = DATABASE_CONFIG
+        self.conn_params = self.config
 
     def get_connection(self):
         return psycopg2.connect(**self.conn_params)
@@ -33,3 +38,7 @@ class DatabaseManager:
     def get_schemas(self):
         query = GET_SCHEMA_QUERY
         return self.fetch_all(query)
+
+    def get_tables(self, schema_name):
+        query = GET_TABLES_QUERY
+        return self.fetch_all(query, (schema_name,))
