@@ -93,7 +93,7 @@ async def get_enums(schema_name: str):
 
 @router.get("/extensions")
 async def get_extensions():
-    pass
+    return manager.get_extensions()
 
 
 @router.get("/roles")
