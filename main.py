@@ -1,5 +1,5 @@
-import uvicorn
 from fastapi import FastAPI
+from api import database
 
 app = FastAPI(
     title='AI DB Docs',
@@ -7,6 +7,4 @@ app = FastAPI(
     docs_url='/docs',
 )
 
-@app.get('/')
-async def root():
-    return {'message': 'Hello World'}
+app.include_router(database.router)
