@@ -1,7 +1,7 @@
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import os
-from core.queries import GET_SCHEMA_QUERY, GET_TABLES_QUERY, GET_EXTENSIONS_QUERY, GET_TABLE_DDL_QUERY
+from core.queries import *
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -50,3 +50,7 @@ class DatabaseManager:
     def get_extensions(self):
         query = GET_EXTENSIONS_QUERY
         return self.fetch_all(query)
+
+    def get_tables_constraints(self, schema_name, table_name):
+        query = GET_TABLE_CONSTRAINTS_QUERY
+        return self.fetch_all(query, (schema_name, table_name))

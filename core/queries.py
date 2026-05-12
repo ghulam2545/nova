@@ -23,23 +23,23 @@ GET_EXTENSIONS_QUERY = """
 
 GET_TABLE_DDL_QUERY = """
                       SELECT 'CREATE TABLE ' || n.nspname || '.' || c.relname || ' (\n' ||
-    string_agg(
-        '    ' ||
-        a.attname || ' ' ||
-        pg_catalog.format_type(a.atttypid, a.atttypmod) ||
-        CASE
-            WHEN a.attnotnull THEN ' NOT NULL'
-            ELSE ''
-        END ||
-        CASE
-            WHEN ad.adbin IS NOT NULL
-            THEN ' DEFAULT ' || pg_get_expr(ad.adbin, ad.adrelid)
-            ELSE ''
-        END,
-        E',\n'
+                             string_agg(
+                                     '    ' ||
+                                     a.attname || ' ' ||
+                                     pg_catalog.format_type(a.atttypid, a.atttypmod) ||
+                                     CASE
+                                         WHEN a.attnotnull THEN ' NOT NULL'
+                                         ELSE ''
+                                         END ||
+                                     CASE
+                                         WHEN ad.adbin IS NOT NULL
+                                             THEN ' DEFAULT ' || pg_get_expr(ad.adbin, ad.adrelid)
+                                         ELSE ''
+                                         END,
+                                     E',\n'
         ORDER BY a.attnum
-    ) ||
-    E'\n);' AS ddl
+                             ) ||
+                             E '\n);' AS ddl
                       FROM pg_class c
                                JOIN pg_namespace n
                                     ON n.oid = c.relnamespace
@@ -52,5 +52,25 @@ GET_TABLE_DDL_QUERY = """
                         AND c.relname = %s
                         AND a.attnum > 0
                         AND NOT a.attisdropped
-                      GROUP BY n.nspname, c.relname; \
+                      GROUP BY n.nspname, c.relname;
                       """
+
+GET_TABLE_CONSTRAINTS_QUERY = """
+                              SELECT tc.constraint_name,
+                                     tc.constraint_type,
+                                     kcu.column_name,
+                                     ccu.table_schema AS foreign_table_schema,
+                                     ccu.table_name   AS foreign_table_name,
+                                     ccu.column_name  AS foreign_column_name,
+                                     chk.check_clause
+                              FROM information_schema.table_constraints AS tc
+                                       JOIN information_schema.key_column_usage AS kcu
+                                            ON tc.constraint_name = kcu.constraint_name
+                                                AND tc.table_schema = kcu.table_schema
+                                       LEFT JOIN information_schema.constraint_column_usage AS ccu
+                                                 ON kcu.constraint_name = ccu.constraint_name
+                                       LEFT JOIN information_schema.check_constraints AS chk
+                                                 ON tc.constraint_name = chk.constraint_name
+                              WHERE tc.table_schema = %s
+                                AND tc.table_name = %s;
+                              """

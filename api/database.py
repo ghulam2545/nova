@@ -23,7 +23,7 @@ async def get_table_ddl(schema_name: str, table_name: str):
 
 @router.get("/schemas/{schema_name}/tables/{table_name}/constraints")
 async def get_tables_constraints(schema_name: str, table_name: str):
-    pass
+    return manager.get_tables_constraints(schema_name, table_name)
 
 
 @router.get("/schemas/{schema_name}/tables/{table_name}/indexes")
