@@ -4,11 +4,28 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
+from contextlib import asynccontextmanager
+from core.database_manager import DatabaseManager
+
+db = DatabaseManager()
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    try:
+        db.test_connection()
+        print("Database connected successfully")
+    except Exception as e:
+        print(f"Database connection failed: {e}")
+        raise e
+    yield
+
 
 app = FastAPI(
     title='AI DB Docs',
     version='0.0.1',
     docs_url='/docs',
+    lifespan=lifespan,
 )
 
 app.add_middleware(
@@ -30,7 +47,6 @@ async def home(request: Request):
         request=request,
         name="index.html",
         context={
-            "title": "AI DB Docs",
-            "message": "Hello from FastAPI + Jinja2"
+            "title": "AI DB Docs"
         }
     )

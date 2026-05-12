@@ -22,6 +22,12 @@ class DatabaseManager:
     def get_connection(self):
         return psycopg2.connect(**self.conn_params)
 
+    def test_connection(self):
+        conn = self.get_connection()
+        with conn.cursor() as cur:
+            cur.execute("SELECT 1;")
+        conn.close()
+
     def fetch_all(self, query, params=None):
         with self.get_connection() as conn:
             with conn.cursor(cursor_factory=RealDictCursor) as cur:
@@ -97,8 +103,4 @@ class DatabaseManager:
 
     def get_tables_relationships(self, schema_name, table_name):
         query = GET_TABLE_RELATIONSHIPS_QUERY
-        return self.fetch_all(query, (schema_name, table_name))
-
-    def get_tables_column(self, schema_name, table_name):
-        query = GET_COLUMNS_QUERY
         return self.fetch_all(query, (schema_name, table_name))
