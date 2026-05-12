@@ -1187,10 +1187,12 @@ body {
     inset: 0;
     background: rgba(0, 0, 0, .5);
     display: none;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
     z-index: 100;
     backdrop-filter: blur(4px);
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .qoverlay.open {
@@ -1200,10 +1202,11 @@ body {
 .qpanel {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 12px 12px 0 0;
+    border-radius: 12px;
     width: 100%;
     max-width: 960px;
     height: 86vh;
+    max-height: 900px;
     display: flex;
     flex-direction: column;
     box-shadow: var(--shadow-md);
