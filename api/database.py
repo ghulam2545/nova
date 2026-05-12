@@ -33,7 +33,7 @@ async def get_tables_indexes(schema_name: str, table_name: str):
 
 @router.get("/schemas/{schema_name}/tables/{table_name}/relationships")
 async def get_tables_relationships(schema_name: str, table_name: str):
-    pass
+    return manager.get_tables_relationships(schema_name, table_name)
 
 
 @router.get("/schemas/{schema_name}/tables/{table_name}/size")
@@ -88,7 +88,7 @@ async def get_sequences(schema_name: str):
 
 @router.get("/schemas/{schema_name}/enums")
 async def get_enums(schema_name: str):
-    pass
+    return manager.get_enums_from_schema(schema_name)
 
 
 @router.get("/extensions")
@@ -98,12 +98,12 @@ async def get_extensions():
 
 @router.get("/roles")
 async def get_roles():
-    pass
+    return manager.get_roles()
 
 
 @router.get("/schemas/{schema_name}/tables/{table_name}/grants")
 async def get_tables_grants(schema_name: str, table_name: str):
-    pass
+    return manager.get_tables_grants(schema_name, table_name)
 
 
 @router.get("/schemas/{schema_name}/tables/{table_name}/dependencies")

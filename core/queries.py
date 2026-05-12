@@ -172,3 +172,70 @@ GET_TABLE_STATS_QUERY = """
                         WHERE n.nspname = %s
                           AND c.relname = %s;
                         """
+
+GET_ROLES_QUERY = """
+                  SELECT r.rolname                             AS role_name,
+                         r.rolsuper                            AS is_superuser,
+                         r.rolinherit                          AS can_inherit,
+                         r.rolcreaterole                       AS can_create_role,
+                         r.rolcreatedb                         AS can_create_db,
+                         r.rolcanlogin                         AS can_login,
+                         r.rolreplication                      AS replication_role,
+                         r.rolbypassrls                        AS bypass_row_level_security,
+                         r.rolconnlimit                        AS connection_limit,
+                         r.rolvaliduntil                       AS password_expiry,
+                         shobj_description(r.oid, 'pg_authid') AS comment
+                  FROM pg_roles r
+                  ORDER BY r.rolname;
+                  """
+
+GET_TABLE_GRANTS_QUERY = """
+                         SELECT grantee,
+                                privilege_type,
+                                is_grantable
+                         FROM information_schema.table_privileges
+                         WHERE table_schema = %s
+                           AND table_name = %s
+                         ORDER BY grantee, privilege_type;
+                         """
+
+GET_ENUMS_FROM_SCHEMA_QUERY = """
+                              SELECT n.nspname       AS schema_name,
+                                     t.typname       AS enum_name,
+                                     e.enumlabel     AS enum_value,
+                                     e.enumsortorder AS sort_order
+                              FROM pg_type t
+                                       JOIN pg_enum e
+                                            ON t.oid = e.enumtypid
+                                       JOIN pg_namespace n
+                                            ON n.oid = t.typnamespace
+                              WHERE n.nspname = %s
+                              ORDER BY t.typname, e.enumsortorder;
+                              """
+
+GET_TABLE_RELATIONSHIPS_QUERY = """
+                                SELECT tc.constraint_name,
+                                       tc.table_schema,
+                                       tc.table_name,
+                                       kcu.column_name,
+                                       ccu.table_schema AS foreign_table_schema,
+                                       ccu.table_name   AS foreign_table_name,
+                                       ccu.column_name  AS foreign_column_name,
+                                       rc.update_rule,
+                                       rc.delete_rule,
+                                       tc.constraint_type
+                                FROM information_schema.table_constraints tc
+                                         JOIN information_schema.key_column_usage kcu
+                                              ON tc.constraint_name = kcu.constraint_name
+                                                  AND tc.table_schema = kcu.table_schema
+                                         JOIN information_schema.constraint_column_usage ccu
+                                              ON ccu.constraint_name = tc.constraint_name
+                                                  AND ccu.table_schema = tc.table_schema
+                                         LEFT JOIN information_schema.referential_constraints rc
+                                                   ON rc.constraint_name = tc.constraint_name
+                                                       AND rc.constraint_schema = tc.table_schema
+                                WHERE tc.constraint_type = 'FOREIGN KEY'
+                                  AND tc.table_schema = %s
+                                  AND tc.table_name = %s
+                                ORDER BY tc.constraint_name, kcu.ordinal_position;
+                                """

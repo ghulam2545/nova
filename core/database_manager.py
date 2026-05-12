@@ -78,3 +78,19 @@ class DatabaseManager:
     def get_tables_stats(self, schema_name, table_name):
         query = GET_TABLE_STATS_QUERY
         return self.fetch_all(query, (schema_name, table_name))
+
+    def get_roles(self):
+        query = GET_ROLES_QUERY
+        return self.fetch_all(query)
+
+    def get_tables_grants(self, schema_name, table_name):
+        query = GET_TABLE_GRANTS_QUERY
+        return self.fetch_all(query, (schema_name, table_name))
+
+    def get_enums_from_schema(self, schema_name):
+        query = GET_ENUMS_FROM_SCHEMA_QUERY
+        return self.fetch_all(query, (schema_name,))
+
+    def get_tables_relationships(self, schema_name, table_name):
+        query = GET_TABLE_RELATIONSHIPS_QUERY
+        return self.fetch_all(query, (schema_name, table_name))
