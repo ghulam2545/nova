@@ -38,12 +38,12 @@ async def get_tables_relationships(schema_name: str, table_name: str):
 
 @router.get("/schemas/{schema_name}/tables/{table_name}/size")
 async def get_tables_size(schema_name: str, table_name: str):
-    pass
+    return manager.get_tables_size(schema_name, table_name)
 
 
 @router.get("/schemas/{schema_name}/tables/{table_name}/stats")
 async def get_tables_stats(schema_name: str, table_name: str):
-    pass
+    return manager.get_tables_stats(schema_name, table_name)
 
 
 @router.get("/schemas/{schema_name}/tables/{table_name}/columns/{column_name}")
@@ -108,4 +108,4 @@ async def get_tables_grants(schema_name: str, table_name: str):
 
 @router.get("/schemas/{schema_name}/tables/{table_name}/dependencies")
 async def get_tables_dependencies(schema_name: str, table_name: str):
-    pass
+    return manager.get_tables_dependencies(schema_name, table_name)

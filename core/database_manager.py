@@ -62,3 +62,19 @@ class DatabaseManager:
     def get_functions(self, schema_name):
         query = GET_FUNCTIONS_QUERY
         return self.fetch_all(query, (schema_name,))
+
+    def get_tables_dependencies(self, schema_name, table_name):
+        inbound_query = GET_INBOUND_DEPENDENCY_QUERY
+        outbound_query = GET_OUTBOUND_DEPENDENCY_QUERY
+        return {
+            "inbound": self.fetch_all(inbound_query, (schema_name, table_name)),
+            "outbound": self.fetch_all(outbound_query, (schema_name, table_name))
+        }
+
+    def get_tables_size(self, schema_name, table_name):
+        query = GET_TABLE_SIZES_QUERY
+        return self.fetch_all(query, (schema_name, table_name))
+
+    def get_tables_stats(self, schema_name, table_name):
+        query = GET_TABLE_STATS_QUERY
+        return self.fetch_all(query, (schema_name, table_name))

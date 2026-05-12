@@ -91,3 +91,84 @@ GET_FUNCTIONS_QUERY = """
                       WHERE routine_schema = %s
                         AND routine_type IN ('FUNCTION', 'PROCEDURE');
                       """
+
+GET_INBOUND_DEPENDENCY_QUERY = """
+                               SELECT tc.table_schema,
+                                      tc.table_name
+                               FROM information_schema.table_constraints AS tc
+                                        JOIN information_schema.key_column_usage AS kcu
+                                             ON tc.constraint_name = kcu.constraint_name
+                                                 AND tc.table_schema = kcu.table_schema
+                                        JOIN information_schema.constraint_column_usage AS ccu
+                                             ON kcu.constraint_name = ccu.constraint_name
+                               WHERE ccu.table_schema = %s
+                                 AND ccu.table_name = %s
+                                 AND tc.constraint_type = 'FOREIGN KEY';
+                               """
+
+GET_OUTBOUND_DEPENDENCY_QUERY = """
+                                SELECT ccu.table_schema,
+                                       ccu.table_name
+                                FROM information_schema.table_constraints AS tc
+                                         JOIN information_schema.key_column_usage AS kcu
+                                              ON tc.constraint_name = kcu.constraint_name
+                                                  AND tc.table_schema = kcu.table_schema
+                                         JOIN information_schema.constraint_column_usage AS ccu
+                                              ON kcu.constraint_name = ccu.constraint_name
+                                WHERE tc.table_schema = %s
+                                  AND tc.table_name = %s
+                                  AND tc.constraint_type = 'FOREIGN KEY';
+                                """
+
+GET_TABLE_SIZES_QUERY = """SELECT t.table_schema,
+                                  t.table_name,
+                                  pg_size_pretty(
+                                          pg_total_relation_size(
+                                                  quote_ident(t.table_schema) || '.' || quote_ident(t.table_name)
+                                          )
+                                  ) AS total_size,
+                                  pg_size_pretty(
+                                          pg_relation_size(
+                                                  quote_ident(t.table_schema) || '.' || quote_ident(t.table_name)
+                                          )
+                                  ) AS table_size,
+                                  pg_size_pretty(
+                                          pg_total_relation_size(
+                                                  quote_ident(t.table_schema) || '.' || quote_ident(t.table_name)
+                                          ) - pg_relation_size(
+                                                  quote_ident(t.table_schema) || '.' || quote_ident(t.table_name)
+                                              )
+                                  ) AS indexes_size
+                           FROM information_schema.tables t
+                           WHERE t.table_schema = %s
+                             AND t.table_name = %s;
+                        """
+
+GET_TABLE_STATS_QUERY = """
+                        SELECT n.nspname                   AS schema_name,
+                               c.relname                   AS table_name,
+                               c.relkind                   AS table_type,
+                               pg_size_pretty(
+                                       pg_relation_size(
+                                               quote_ident(n.nspname) || '.' || quote_ident(c.relname)
+                                       )
+                               )                           AS table_size,
+                               pg_size_pretty(
+                                       pg_indexes_size(
+                                               quote_ident(n.nspname) || '.' || quote_ident(c.relname)
+                                       )
+                               )                           AS indexes_size,
+                               pg_size_pretty(
+                                       pg_total_relation_size(
+                                               quote_ident(n.nspname) || '.' || quote_ident(c.relname)
+                                       )
+                               )                           AS total_size,
+                               obj_description(c.oid)      AS table_comment,
+                               pg_get_userbyid(c.relowner) AS owner_name
+                        FROM pg_class c
+                                 JOIN pg_namespace n
+                                      ON n.oid = c.relnamespace
+
+                        WHERE n.nspname = %s
+                          AND c.relname = %s;
+                        """

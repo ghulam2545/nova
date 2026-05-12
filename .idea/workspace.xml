@@ -109,7 +109,7 @@
       <updated>1778527784653</updated>
       <workItem from="1778527785611" duration="6929000" />
       <workItem from="1778566290223" duration="4000" />
-      <workItem from="1778603474552" duration="495000" />
+      <workItem from="1778603474552" duration="1681000" />
     </task>
     <task id="LOCAL-00001" summary="first commit message">
       <option name="closed" value="true" />
@@ -167,7 +167,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778603736699</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="implementing more func">
+      <option name="closed" value="true" />
+      <created>1778604094185</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1778604094185</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -184,7 +192,7 @@
     <option name="LAST_COMMIT_MESSAGE" value="implementing more func" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/nova$nova.coverage" NAME="nova Coverage Results" MODIFIED="1778603865654" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/nova$nova.coverage" NAME="nova Coverage Results" MODIFIED="1778605090099" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/nova$main.coverage" NAME="main Coverage Results" MODIFIED="1778527929167" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
