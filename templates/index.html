@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>AI DB Docs</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+<div class="app" id="app" data-theme="light">
+
+    <!-- ── Sidebar ───────────────────── -->
+    <aside class="sidebar">
+        <div class="sb-head">
+            <div class="sb-logo">
+                <div class="sb-logo-mark"><i class="fas fa-database"></i></div>
+                <span class="sb-logo-name">AI DB Docs</span>
+                <span class="sb-version">{{ version | default('v0.0.1') }}</span>
+            </div>
+            <div class="sb-search-row">
+                <div class="sb-search-wrap">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="sb-search" placeholder="Search tables…" oninput="filterExplorer(this.value)">
+                </div>
+                <button class="btn-icon" title="Edit connection" onclick="openConnModal()"><i class="fas fa-plug"></i>
+                </button>
+            </div>
+        </div>
+        <div class="sb-section-label">Explorer</div>
+        <nav class="explorer" id="explorer">
+            <div style="padding:12px 14px;">
+                <div class="skel loading-line" style="width:55%;"></div>
+                <div class="skel loading-line" style="width:75%;margin-left:16px;"></div>
+                <div class="skel loading-line" style="width:65%;margin-left:16px;"></div>
+            </div>
+        </nav>
+        <div class="sb-footer">
+            <span class="sb-footer-text" id="footer-conn">localhost/db</span>
+            <span class="conn-status"><span class="conn-dot"></span>live</span>
+        </div>
+    </aside>
+
+    <!-- ── Main ─────────────────────── -->
+    <main class="main">
+        <header class="topbar">
+            <div class="breadcrumbs" id="breadcrumbs">
+                <span class="bc-cur">Dashboard</span>
+            </div>
+            <div class="topbar-actions">
+                <button class="btn-icon" id="refresh-btn" title="Refresh" onclick="initApp()"><i
+                        class="fas fa-rotate-right"></i></button>
+                <button class="btn btn-ghost" style="font-size:11px;" onclick="openConnModal()"><i class="fas fa-plug"
+                                                                                                   style="margin-right:5px;font-size:10px;"></i>Connection
+                </button>
+            </div>
+        </header>
+
+        <div class="content" id="content">
+
+            <!-- ── Dashboard ── -->
+            <div id="view-dashboard">
+                <div class="page-title">Database Overview</div>
+                <div class="page-sub" id="dash-sub">Loading database info…</div>
+
+                <div class="stats-grid" id="stats-grid">
+                    <div class="stat-card hi skel" style="height:90px;"></div>
+                    <div class="stat-card skel" style="height:90px;"></div>
+                    <div class="stat-card skel" style="height:90px;"></div>
+                    <div class="stat-card skel" style="height:90px;"></div>
+                    <div class="stat-card skel" style="height:90px;"></div>
+                </div>
+
+                <div class="feature-row">
+                    <div class="feat-card">
+                        <div class="feat-icon"><i class="fas fa-comments"></i></div>
+                        <div class="feat-title">Chat with Database (AI)</div>
+                        <div class="feat-desc">Ask questions in plain English and get SQL, schema explanations, and data
+                            insights instantly.
+                        </div>
+                        <span class="badge badge-soon">Coming Soon</span>
+                    </div>
+                    <div class="feat-card clickable" id="open-query-btn" onclick="openQueryPanel()">
+                        <i class="fas fa-arrow-up-right feat-arrow"></i>
+                        <div class="feat-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="feat-title">Optimize Query with AI</div>
+                        <div class="feat-desc">Paste any SQL, get performance analysis, index suggestions, and a
+                            refactored version.
+                        </div>
+                        <span class="badge badge-live">Try Now</span>
+                    </div>
+                </div>
+
+                <div class="info-row" id="dash-info-row">
+                    <div class="info-card" id="ext-card">
+                        <div class="info-card-head"><i class="fas fa-puzzle-piece"></i> Extensions</div>
+                        <div class="info-card-body">
+                            <div class="empty-state"><i class="fas fa-spinner fa-spin"></i>Loading…</div>
+                        </div>
+                    </div>
+                    <div class="info-card" id="roles-card">
+                        <div class="info-card-head"><i class="fas fa-users"></i> Roles</div>
+                        <div class="info-card-body">
+                            <div class="empty-state"><i class="fas fa-spinner fa-spin"></i>Loading…</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Table / View Detail ── -->
+            <div id="view-detail" style="display:none;">
+                <div class="detail-head">
+                    <div class="detail-name">
+                        <h2 id="det-name">—</h2>
+                        <span class="type-pill" id="det-type">TABLE</span>
+                    </div>
+                    <div class="detail-meta" id="det-meta"></div>
+                </div>
+
+                <div class="tabs" id="detail-tabs">
+                    <button class="tab-btn active" data-tab="tab-ddl"><i class="fas fa-code"></i> DDL</button>
+                    <button class="tab-btn" data-tab="tab-constraints"><i class="fas fa-key"></i> Constraints</button>
+                    <button class="tab-btn" data-tab="tab-indexes"><i class="fas fa-layer-group"></i> Indexes</button>
+                    <button class="tab-btn" data-tab="tab-relationships"><i class="fas fa-diagram-project"></i>
+                        Relationships
+                    </button>
+                    <button class="tab-btn" data-tab="tab-size"><i class="fas fa-weight-hanging"></i> Size</button>
+                    <button class="tab-btn" data-tab="tab-stats"><i class="fas fa-chart-bar"></i> Stats</button>
+                    <button class="tab-btn" data-tab="tab-grants"><i class="fas fa-shield-halved"></i> Grants</button>
+                    <button class="tab-btn" data-tab="tab-deps"><i class="fas fa-sitemap"></i> Dependencies</button>
+                    <button class="tab-btn" data-tab="tab-ai"><i class="fas fa-robot"></i> AI Insights</button>
+                </div>
+
+                <!-- DDL -->
+                <div class="tab-pane active" id="tab-ddl">
+                    <div class="ddl-wrap">
+                        <div class="ddl-toolbar">
+                            <div class="ddl-toolbar-left"><i class="fas fa-code"></i> <span id="ddl-label">DDL</span>
+                            </div>
+                            <button class="btn-copy" onclick="copyDDL()"><i class="fas fa-copy"></i> Copy</button>
+                        </div>
+                        <div class="ddl-pre">
+                            <pre id="ddl-content">Loading…</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Constraints -->
+                <div class="tab-pane" id="tab-constraints">
+                    <div class="card">
+                        <div class="card-head">
+                            <div class="card-head-left"><i class="fas fa-key"></i> Constraints <span class="row-count"
+                                                                                                     id="cnt-constraints"></span>
+                            </div>
+                        </div>
+                        <div style="overflow-x:auto;">
+                            <table class="data-table">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Column</th>
+                                    <th>Ref Table</th>
+                                    <th>Ref Column</th>
+                                    <th>Check Clause</th>
+                                </tr>
+                                </thead>
+                                <tbody id="tb-constraints"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Indexes -->
+                <div class="tab-pane" id="tab-indexes">
+                    <div class="card">
+                        <div class="card-head">
+                            <div class="card-head-left"><i class="fas fa-layer-group"></i> Indexes <span
+                                    class="row-count" id="cnt-indexes"></span></div>
+                        </div>
+                        <div style="overflow-x:auto;">
+                            <table class="data-table">
+                                <thead>
+                                <tr>
+                                    <th>Index Name</th>
+                                    <th>Definition</th>
+                                </tr>
+                                </thead>
+                                <tbody id="tb-indexes"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Relationships -->
+                <div class="tab-pane" id="tab-relationships">
+                    <div class="card">
+                        <div class="card-head">
+                            <div class="card-head-left"><i class="fas fa-diagram-project"></i> Foreign Key Relationships
+                                <span class="row-count" id="cnt-rels"></span></div>
+                        </div>
+                        <div style="overflow-x:auto;">
+                            <table class="data-table">
+                                <thead>
+                                <tr>
+                                    <th>Constraint</th>
+                                    <th>Column</th>
+                                    <th>→ Foreign Table</th>
+                                    <th>→ Column</th>
+                                    <th>On Update</th>
+                                    <th>On Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody id="tb-rels"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Size -->
+                <div class="tab-pane" id="tab-size">
+                    <div id="size-content"></div>
+                </div>
+
+                <!-- Stats -->
+                <div class="tab-pane" id="tab-stats">
+                    <div id="stats-content"></div>
+                </div>
+
+                <!-- Grants -->
+                <div class="tab-pane" id="tab-grants">
+                    <div class="card">
+                        <div class="card-head">
+                            <div class="card-head-left"><i class="fas fa-shield-halved"></i> Grants <span
+                                    class="row-count" id="cnt-grants"></span></div>
+                        </div>
+                        <div style="overflow-x:auto;">
+                            <table class="data-table">
+                                <thead>
+                                <tr>
+                                    <th>Grantee</th>
+                                    <th>Privilege</th>
+                                    <th>Grantable</th>
+                                </tr>
+                                </thead>
+                                <tbody id="tb-grants"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dependencies -->
+                <div class="tab-pane" id="tab-deps">
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;" id="deps-grid">
+                        <div>
+                            <div class="dep-section-title"><i class="fas fa-arrow-right"></i> Inbound (tables
+                                referencing this)
+                            </div>
+                            <div class="card">
+                                <div style="overflow-x:auto;">
+                                    <table class="data-table">
+                                        <thead>
+                                        <tr>
+                                            <th>Schema</th>
+                                            <th>Table</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="tb-deps-in"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="dep-section-title"><i class="fas fa-arrow-left"></i> Outbound (tables this
+                                references)
+                            </div>
+                            <div class="card">
+                                <div style="overflow-x:auto;">
+                                    <table class="data-table">
+                                        <thead>
+                                        <tr>
+                                            <th>Schema</th>
+                                            <th>Table</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="tb-deps-out"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Insights -->
+                <div class="tab-pane" id="tab-ai">
+                    <div class="ai-banner">
+                        <div class="ai-banner-icon"><i class="fas fa-robot"></i></div>
+                        <div class="ai-banner-title">AI Insights — Coming Soon</div>
+                        <div class="ai-banner-sub">Automated schema analysis, query recommendations, and anomaly
+                            detection<br>will appear here once the AI backend is connected.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<!-- ── Connection Modal ───────────── -->
+<div class="overlay" id="conn-overlay">
+    <div class="modal">
+        <div class="modal-title">Database Connection</div>
+        <div class="modal-sub">Edit connection and reconnect</div>
+        <div class="form-grid">
+            <div class="form-group full"><label class="form-label">Host</label><input class="form-input" id="f-host"
+                                                                                      value="localhost"></div>
+            <div class="form-group"><label class="form-label">Port</label><input class="form-input" id="f-port"
+                                                                                 value="5432"></div>
+            <div class="form-group"><label class="form-label">Database</label><input class="form-input" id="f-db"
+                                                                                     value="mydb"></div>
+            <div class="form-group"><label class="form-label">Username</label><input class="form-input" id="f-user"
+                                                                                     value="postgres"></div>
+            <div class="form-group"><label class="form-label">Password</label><input class="form-input" type="password"
+                                                                                     id="f-pass" placeholder="••••••••">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-ghost" onclick="closeConnModal()">Cancel</button>
+            <button class="btn btn-primary" onclick="saveConn()"><i class="fas fa-plug"
+                                                                    style="margin-right:6px;font-size:10px;"></i>Save
+                &amp; Connect
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ── Query Optimizer Panel ─────── -->
+<div class="qoverlay" id="query-overlay">
+    <div class="qpanel">
+        <div class="qp-header">
+            <div class="qp-icon"><i class="fas fa-bolt"></i></div>
+            <div>
+                <div class="qp-title">Optimize Query with AI</div>
+                <div class="qp-sub">Paste SQL · Get analysis, index suggestions &amp; refactored output</div>
+            </div>
+            <button class="qp-close" onclick="closeQueryPanel()"><i class="fas fa-xmark"></i></button>
+        </div>
+        <div class="qp-body">
+            <div class="qp-two">
+                <div style="display:flex;flex-direction:column;height:100%;">
+                    <div class="qp-col-label"><i class="fas fa-pen-to-square"></i> Input Query</div>
+                    <textarea class="query-ta" id="query-input"
+                              placeholder="-- Paste your SQL here&#10;&#10;SELECT u.id, u.name, COUNT(o.id)&#10;FROM users u&#10;LEFT JOIN orders o ON u.id = o.user_id&#10;WHERE u.is_active = true&#10;GROUP BY u.id&#10;ORDER BY 3 DESC;"
+                              oninput="updateCharCount()"></textarea>
+                    <div style="margin-top:6px;font-size:11px;color:var(--faint);font-family:'Fira Code',monospace;">
+                        <span id="char-count">0</span> chars
+                    </div>
+                </div>
+                <div style="display:flex;flex-direction:column;height:100%;">
+                    <div class="qp-col-label"><i class="fas fa-robot"></i> AI Output</div>
+                    <div class="result-box" id="query-result"><span style="font-size:11px;color:var(--faint);">Analysis will appear here…</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="qp-footer">
+            <span class="qp-footer-note"><i class="fas fa-circle-info"></i> Backend integration coming soon — UI preview only</span>
+            <button class="btn btn-ghost" onclick="clearQuery()">Clear</button>
+            <button class="btn btn-primary" onclick="optimizeQuery()"><i class="fas fa-bolt"
+                                                                         style="margin-right:5px;font-size:10px;"></i>Analyze
+                &amp; Optimize
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="toast"></div>
+
+<script src="../static/app.js"></script>
+</body>
+</html>

@@ -36,10 +36,10 @@ GET_TABLE_DDL_QUERY = """
                                              THEN ' DEFAULT ' || pg_get_expr(ad.adbin, ad.adrelid)
                                          ELSE ''
                                          END,
-                                     E',\n'
-        ORDER BY a.attnum
+                                     ',\n'
+                                         ORDER BY a.attnum
                              ) ||
-                             E '\n);' AS ddl
+                             '\n);' AS ddl
                       FROM pg_class c
                                JOIN pg_namespace n
                                     ON n.oid = c.relnamespace
