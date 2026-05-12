@@ -212,6 +212,7 @@ async function openTable(schema, table, type) {
 
     // Load all tabs in background
     loadDDL(schema, table);
+    loadColumns(schema, table)
     loadConstraints(schema, table);
     loadIndexes(schema, table);
     loadRelationships(schema, table);
@@ -251,6 +252,33 @@ async function loadDDL(schema, table) {
         el.innerHTML = highlightSQL(esc(ddl));
     } catch {
         el.textContent = 'Could not load DDL.';
+    }
+}
+
+/* Columns */
+async function loadColumns(schema, table) {
+    const tbody = document.getElementById('tb-cols');
+    const cnt = document.getElementById('cnt-cols');
+    try {
+        const rows = await apiFetch(`/schemas/${schema}/tables/${table}`);
+        cnt.textContent = `· ${rows.length} column${rows.length !== 1 ? 's' : ''}`;
+        tbody.innerHTML = rows.length ? rows.map(col => `
+            <tr>
+                <td class="mono">${esc(col.column_name)}</td>
+                <td><span class="pill">${esc(col.data_type)}</span></td>
+                <td> ${col.is_nullable === 'YES'
+            ? '<span class="pill pill-ok">YES</span>'
+            : '<span class="pill pill-danger">NO</span>'
+        }
+                </td>
+                <td class="mono" style="font-size:11px;"> ${esc(col.column_default || '-')}</td>
+                <td> ${col.character_maximum_length ?? '-'}</td>
+                <td> ${col.numeric_precision ?? '-'}</td>
+                <td> ${col.numeric_scale ?? '-'}</td>
+            </tr>
+        `).join('') : emptyRow(7);
+    } catch {
+        tbody.innerHTML = errorRow(7);
     }
 }
 

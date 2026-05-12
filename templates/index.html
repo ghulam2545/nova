@@ -122,6 +122,7 @@
 
                 <div class="tabs" id="detail-tabs">
                     <button class="tab-btn active" data-tab="tab-ddl"><i class="fas fa-code"></i> DDL</button>
+                    <button class="tab-btn" data-tab="tab-columns"><i class="fas fa-table-columns"></i> Columns</button>
                     <button class="tab-btn" data-tab="tab-constraints"><i class="fas fa-key"></i> Constraints</button>
                     <button class="tab-btn" data-tab="tab-indexes"><i class="fas fa-layer-group"></i> Indexes</button>
                     <button class="tab-btn" data-tab="tab-relationships"><i class="fas fa-diagram-project"></i>
@@ -144,6 +145,37 @@
                         </div>
                         <div class="ddl-pre">
                             <pre id="ddl-content">Loading…</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columns -->
+                <div class="tab-pane" id="tab-columns">
+                    <div class="card">
+                        <div class="card-head">
+                            <div class="card-head-left">
+                                <i class="fas fa-table-columns"></i>
+                                Columns
+                                <span class="row-count" id="cnt-cols"></span>
+                            </div>
+                        </div>
+
+                        <div style="overflow-x:auto;">
+                            <table class="data-table">
+                                <thead>
+                                <tr>
+                                    <th>Column</th>
+                                    <th>Type</th>
+                                    <th>Nullable</th>
+                                    <th>Default</th>
+                                    <th>Length</th>
+                                    <th>Precision</th>
+                                    <th>Scale</th>
+                                </tr>
+                                </thead>
+
+                                <tbody id="tb-cols"></tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

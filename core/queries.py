@@ -12,6 +12,20 @@ GET_TABLES_QUERY = """
                    ORDER BY table_name;
                    """
 
+GET_COLUMNS_QUERY = """
+                    SELECT column_name,
+                           data_type,
+                           is_nullable,
+                           column_default,
+                           character_maximum_length,
+                           numeric_precision,
+                           numeric_scale
+                    FROM information_schema.columns
+                    WHERE table_schema = %s
+                      AND table_name = %s
+                    ORDER BY ordinal_position;
+                    """
+
 GET_EXTENSIONS_QUERY = """
                        SELECT extname    AS extension_name,
                               extversion AS version,

@@ -43,6 +43,10 @@ class DatabaseManager:
         query = GET_TABLES_QUERY
         return self.fetch_all(query, (schema_name,))
 
+    def get_tables_column(self, schema_name, table_name):
+        query = GET_COLUMNS_QUERY
+        return self.fetch_all(query, (schema_name, table_name))
+
     def get_table_ddl(self, schema_name, table_name):
         query = GET_TABLE_DDL_QUERY
         return self.fetch_one(query, (schema_name, table_name))
@@ -93,4 +97,8 @@ class DatabaseManager:
 
     def get_tables_relationships(self, schema_name, table_name):
         query = GET_TABLE_RELATIONSHIPS_QUERY
+        return self.fetch_all(query, (schema_name, table_name))
+
+    def get_tables_column(self, schema_name, table_name):
+        query = GET_COLUMNS_QUERY
         return self.fetch_all(query, (schema_name, table_name))

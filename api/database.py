@@ -46,9 +46,9 @@ async def get_tables_stats(schema_name: str, table_name: str):
     return manager.get_tables_stats(schema_name, table_name)
 
 
-@router.get("/schemas/{schema_name}/tables/{table_name}/columns/{column_name}")
-async def get_tables_column(schema_name: str, table_name: str, column_name: str):
-    pass
+@router.get("/schemas/{schema_name}/tables/{table_name}")
+async def get_tables_column(schema_name: str, table_name: str):
+    return manager.get_tables_column(schema_name, table_name)
 
 
 @router.get("/schemas/{schema_name}/views/{view_name}")
