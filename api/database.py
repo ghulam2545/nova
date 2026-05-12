@@ -28,7 +28,7 @@ async def get_tables_constraints(schema_name: str, table_name: str):
 
 @router.get("/schemas/{schema_name}/tables/{table_name}/indexes")
 async def get_tables_indexes(schema_name: str, table_name: str):
-    pass
+    return manager.get_tables_indexes(schema_name, table_name)
 
 
 @router.get("/schemas/{schema_name}/tables/{table_name}/relationships")
@@ -63,7 +63,7 @@ async def get_views_sql(schema_name: str, view_name: str):
 
 @router.get("/schemas/{schema_name}/functions")
 async def get_functions(schema_name: str):
-    pass
+    return manager.get_functions(schema_name)
 
 
 @router.get("/schemas/{schema_name}/functions/{function_name}")

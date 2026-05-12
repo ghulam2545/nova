@@ -54,3 +54,11 @@ class DatabaseManager:
     def get_tables_constraints(self, schema_name, table_name):
         query = GET_TABLE_CONSTRAINTS_QUERY
         return self.fetch_all(query, (schema_name, table_name))
+
+    def get_tables_indexes(self, schema_name, table_name):
+        query = GET_TABLE_INDEXES_QUERY
+        return self.fetch_all(query, (schema_name, table_name))
+
+    def get_functions(self, schema_name):
+        query = GET_FUNCTIONS_QUERY
+        return self.fetch_all(query, (schema_name,))

@@ -74,3 +74,20 @@ GET_TABLE_CONSTRAINTS_QUERY = """
                               WHERE tc.table_schema = %s
                                 AND tc.table_name = %s;
                               """
+
+GET_TABLE_INDEXES_QUERY = """
+                          SELECT indexname AS index_name,
+                                 indexdef  AS index_definition
+                          FROM pg_indexes
+                          WHERE schemaname = %s
+                            AND tablename = %s;
+                          """
+
+GET_FUNCTIONS_QUERY = """
+                      SELECT routine_name,
+                             routine_type,
+                             data_type AS return_type
+                      FROM information_schema.routines
+                      WHERE routine_schema = %s
+                        AND routine_type IN ('FUNCTION', 'PROCEDURE');
+                      """
