@@ -14,7 +14,7 @@ DATABASE_CONFIG = {
     "port": os.getenv("DATABASE_PORT", "5432"),
 }
 
-class DatabaseManager:
+class DatabaseService:
     def __init__(self):
         self.config = DATABASE_CONFIG
         self.conn_params = self.config

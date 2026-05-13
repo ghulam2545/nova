@@ -1,5 +1,5 @@
 /* ── Config ─────────────────────────────── */
-const API = 'http://localhost:8000'; // same-origin; change to 'http://localhost:8000' if needed
+const API = 'http://localhost:8000';
 let state = {schema: null, table: null, tableType: null};
 let schemasData = [];
 
@@ -461,14 +461,29 @@ function clearQuery() {
     document.getElementById('query-result').innerHTML = `<span style="font-size:11px;color:var(--faint);">Analysis will appear here…</span>`;
 }
 
-function optimizeQuery() {
+async function optimizeQuery() {
     const q = document.getElementById('query-input').value.trim();
+    const r = document.getElementById('query-result');
     if (!q) {
         showToast('Paste a SQL query first');
         return;
     }
-    document.getElementById('query-result').innerHTML =
-        `<span style="color:var(--faint);font-size:11px;"><i class="fas fa-robot"></i> AI optimization backend coming soon.<br><br>Your query has <strong style="color:var(--text);">${q.length} chars</strong>. Connect an AI backend to get analysis.</span>`;
+    r.textContent = 'Loading…';
+    try {
+        const response = await fetch('/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                input_prompt: q
+            })
+        });
+        const data = await response.json();
+        r.innerHTML = data.response
+    } catch (error) {
+        r.textContent = 'Connect an AI backend to get analysis...';
+    }
 }
 
 /* ── DDL copy ────────────────────────────── */

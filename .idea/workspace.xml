@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="55dd1677-23ca-4841-a5c7-e9f6e28fa232" name="Changes" comment="fixing to render columns">
+    <list default="true" id="55dd1677-23ca-4841-a5c7-e9f6e28fa232" name="Changes" comment="test connection of database">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/database_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/database_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/database_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/database_service.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/app.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,6 +78,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/config" />
       <recent name="$PROJECT_DIR$/static" />
       <recent name="$PROJECT_DIR$" />
     </key>
@@ -116,7 +119,14 @@
       <workItem from="1778566290223" duration="4000" />
       <workItem from="1778603474552" duration="10985000" />
       <workItem from="1778615108100" duration="5000" />
-      <workItem from="1778616651757" duration="173000" />
+      <workItem from="1778616651757" duration="1772000" />
+      <workItem from="1778619259432" duration="555000" />
+      <workItem from="1778619909904" duration="315000" />
+      <workItem from="1778654706740" duration="14000" />
+      <workItem from="1778678388946" duration="934000" />
+      <workItem from="1778689028076" duration="312000" />
+      <workItem from="1778689373172" duration="3810000" />
+      <workItem from="1778693259198" duration="3035000" />
     </task>
     <task id="LOCAL-00001" summary="first commit message">
       <option name="closed" value="true" />
@@ -222,7 +232,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778613430945</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="test connection of database">
+      <option name="closed" value="true" />
+      <created>1778616850635</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1778616850635</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -251,10 +269,11 @@
     <MESSAGE value="UI integration, LOL" />
     <MESSAGE value="minor changes" />
     <MESSAGE value="fixing to render columns" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixing to render columns" />
+    <MESSAGE value="test connection of database" />
+    <option name="LAST_COMMIT_MESSAGE" value="test connection of database" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/nova$nova.coverage" NAME="nova Coverage Results" MODIFIED="1778616748723" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/nova$nova.coverage" NAME="nova Coverage Results" MODIFIED="1778696228898" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/nova$main.coverage" NAME="main Coverage Results" MODIFIED="1778527929167" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -1,13 +1,13 @@
 from fastapi import FastAPI, Request
-from api import database
+from api import database, chat
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
-from core.database_manager import DatabaseManager
+from core.database_service import DatabaseService
 
-db = DatabaseManager()
+db = DatabaseService()
 
 
 @asynccontextmanager
@@ -36,6 +36,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.include_router(database.router)
+app.include_router(chat.router)
 
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
