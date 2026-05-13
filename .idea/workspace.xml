@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="55dd1677-23ca-4841-a5c7-e9f6e28fa232" name="Changes" comment="test connection of database">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/database.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/database_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/database_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/app.js" afterDir="false" />
-    </list>
+    <list default="true" id="55dd1677-23ca-4841-a5c7-e9f6e28fa232" name="Changes" comment="ollama integration and optimize query" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -126,7 +120,7 @@
       <workItem from="1778678388946" duration="934000" />
       <workItem from="1778689028076" duration="312000" />
       <workItem from="1778689373172" duration="3810000" />
-      <workItem from="1778693259198" duration="3035000" />
+      <workItem from="1778693259198" duration="4014000" />
     </task>
     <task id="LOCAL-00001" summary="first commit message">
       <option name="closed" value="true" />
@@ -240,7 +234,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778616850635</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="ollama integration and optimize query">
+      <option name="closed" value="true" />
+      <created>1778696443502</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1778696443502</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -270,7 +272,8 @@
     <MESSAGE value="minor changes" />
     <MESSAGE value="fixing to render columns" />
     <MESSAGE value="test connection of database" />
-    <option name="LAST_COMMIT_MESSAGE" value="test connection of database" />
+    <MESSAGE value="ollama integration and optimize query" />
+    <option name="LAST_COMMIT_MESSAGE" value="ollama integration and optimize query" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/nova$nova.coverage" NAME="nova Coverage Results" MODIFIED="1778696228898" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
