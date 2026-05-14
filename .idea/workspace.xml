@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="55dd1677-23ca-4841-a5c7-e9f6e28fa232" name="Changes" comment="ollama integration and optimize query" />
+    <list default="true" id="55dd1677-23ca-4841-a5c7-e9f6e28fa232" name="Changes" comment="adding a README">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -120,7 +123,8 @@
       <workItem from="1778678388946" duration="934000" />
       <workItem from="1778689028076" duration="312000" />
       <workItem from="1778689373172" duration="3810000" />
-      <workItem from="1778693259198" duration="4014000" />
+      <workItem from="1778693259198" duration="4655000" />
+      <workItem from="1778787623303" duration="195000" />
     </task>
     <task id="LOCAL-00001" summary="first commit message">
       <option name="closed" value="true" />
@@ -242,7 +246,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778696443502</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="adding a README">
+      <option name="closed" value="true" />
+      <created>1778697313183</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1778697313183</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -273,7 +285,8 @@
     <MESSAGE value="fixing to render columns" />
     <MESSAGE value="test connection of database" />
     <MESSAGE value="ollama integration and optimize query" />
-    <option name="LAST_COMMIT_MESSAGE" value="ollama integration and optimize query" />
+    <MESSAGE value="adding a README" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding a README" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/nova$nova.coverage" NAME="nova Coverage Results" MODIFIED="1778696228898" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />

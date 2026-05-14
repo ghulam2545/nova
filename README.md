@@ -72,3 +72,8 @@ The REST API is fully browsable at `/docs` (Swagger UI).
 ### How the query optimizer works
 
 The `/chat` endpoint passes your SQL to `gpt-oss:120b` via Ollama with a tightly constrained system prompt — it's instructed to return *only* the optimized query, nothing else. The response is then converted from markdown to HTML before being sent back to the frontend, so code blocks render correctly in the UI.
+
+### Screenshots:
+![Dashboard](screenshots/code-1.png)
+![Dashboard](screenshots/code-3.png)
+![Dashboard](screenshots/code-2.png)
