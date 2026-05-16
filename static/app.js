@@ -486,6 +486,15 @@ async function optimizeQuery() {
     }
 }
 
+/* ── Analyzer panel ─────────────────────────── */
+function openAnalyzePanel() {
+    document.getElementById('explain-overlay').classList.add('open');
+}
+
+function closeAnalyzePanel() {
+    document.getElementById('explain-overlay').classList.remove('open');
+}
+
 /* ── DDL copy ────────────────────────────── */
 function copyDDL() {
     const text = document.getElementById('ddl-content').textContent;

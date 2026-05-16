@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="55dd1677-23ca-4841-a5c7-e9f6e28fa232" name="Changes" comment="adding a README">
+    <list default="true" id="55dd1677-23ca-4841-a5c7-e9f6e28fa232" name="Changes" comment="adding a few screenshots">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +126,11 @@
       <workItem from="1778689028076" duration="312000" />
       <workItem from="1778689373172" duration="3810000" />
       <workItem from="1778693259198" duration="4655000" />
-      <workItem from="1778787623303" duration="195000" />
+      <workItem from="1778787623303" duration="419000" />
+      <workItem from="1778788242297" duration="13000" />
+      <workItem from="1778867742434" duration="425000" />
+      <workItem from="1778868452085" duration="122000" />
+      <workItem from="1778951295113" duration="2662000" />
     </task>
     <task id="LOCAL-00001" summary="first commit message">
       <option name="closed" value="true" />
@@ -254,7 +260,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778697313183</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="adding a few screenshots">
+      <option name="closed" value="true" />
+      <created>1778787900266</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1778787900266</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -286,10 +300,11 @@
     <MESSAGE value="test connection of database" />
     <MESSAGE value="ollama integration and optimize query" />
     <MESSAGE value="adding a README" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding a README" />
+    <MESSAGE value="adding a few screenshots" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding a few screenshots" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/nova$nova.coverage" NAME="nova Coverage Results" MODIFIED="1778696228898" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/nova$nova.coverage" NAME="nova Coverage Results" MODIFIED="1778953912754" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/nova$main.coverage" NAME="main Coverage Results" MODIFIED="1778527929167" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

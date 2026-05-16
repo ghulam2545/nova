@@ -92,6 +92,15 @@
                         </div>
                         <span class="badge badge-live">Try Now</span>
                     </div>
+                    <div class="feat-card clickable" id="open-explain-btn" onclick="openAnalyzePanel()">
+                        <i class="fas fa-arrow-up-right feat-arrow"></i>
+                        <div class="feat-icon"><i class="fas fa-chart-line"></i></div>
+                        <div class="feat-title">Analyze Visualizer</div>
+                        <div class="feat-desc">
+                            Run EXPLAIN ANALYZE on your SQL to detect bottlenecks, slow joins, and expensive scans.
+                        </div>
+                        <span class="badge badge-live">Analyze Plan</span>
+                    </div>
                 </div>
 
                 <div class="info-row" id="dash-info-row">
@@ -396,6 +405,46 @@
                     <div class="qp-col-label"><i class="fas fa-robot"></i> AI Output</div>
                     <div class="result-box" id="query-result"><span style="font-size:11px;color:var(--faint);">Analysis will appear here…</span>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="qp-footer">
+            <span class="qp-footer-note"><i class="fas fa-circle-info"></i> AI can make mistakes.</span>
+            <button class="btn btn-ghost" onclick="clearQuery()">Clear Query</button>
+            <button class="btn btn-primary" onclick="optimizeQuery()"><i class="fas fa-bolt"
+                                                                         style="margin-right:5px;font-size:10px;"></i>Analyze
+                &amp; Optimize
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ── Explain Analyze Panel ─────── -->
+<div class="qoverlay" id="explain-overlay">
+    <div class="qpanel">  <!-- ── TODD work ─────── -->
+        <div class="qp-header">
+            <div class="qp-icon"><i class="fas fa-bolt"></i></div>
+            <div>
+                <div class="qp-title">Optimize Query with AI</div>
+                <div class="qp-sub">Paste SQL · Get analysis, index suggestions &amp; refactored output</div>
+            </div>
+            <button class="qp-close" onclick="closeAnalyzePanel()"><i class="fas fa-xmark"></i></button>
+        </div>
+        <div class="qp-body">
+            <div class="qp-two">
+                <div style="display:flex;flex-direction:column;height:100%;">
+                    <div class="qp-col-label"><i class="fas fa-pen-to-square"></i> Input Query</div>
+                    <!--                    <textarea class="query-ta" id="query-input"-->
+                    <!--                              placeholder="&#45;&#45; Paste your SQL here&#10;&#10;SELECT u.id, u.name, COUNT(o.id)&#10;FROM users u&#10;LEFT JOIN orders o ON u.id = o.user_id&#10;WHERE u.is_active = true&#10;GROUP BY u.id&#10;ORDER BY 3 DESC;"-->
+                    <!--                              oninput="updateCharCount()"></textarea>-->
+                    <div style="margin-top:6px;font-size:11px;color:var(--faint);font-family:'Fira Code',monospace;">
+                        <!--                        <span id="char-count">0</span> chars-->
+                    </div>
+                </div>
+                <div style="display:flex;flex-direction:column;height:100%;">
+                    <div class="qp-col-label"><i class="fas fa-robot"></i> AI Output</div>
+                    <!--                    <div class="result-box" id="query-result"><span style="font-size:11px;color:var(&#45;&#45;faint);">Analysis will appear here…</span>-->
+                    <!--                    </div>-->
                 </div>
             </div>
         </div>
