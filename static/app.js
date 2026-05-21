@@ -495,6 +495,8 @@ function closeAnalyzePanel() {
     document.getElementById('explain-overlay').classList.remove('open');
 }
 
+function openMonitorPanel() {}
+
 /* ── DDL copy ────────────────────────────── */
 function copyDDL() {
     const text = document.getElementById('ddl-content').textContent;
