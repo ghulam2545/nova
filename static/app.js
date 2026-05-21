@@ -495,7 +495,36 @@ function closeAnalyzePanel() {
     document.getElementById('explain-overlay').classList.remove('open');
 }
 
-function openMonitorPanel() {}
+/* ── Monitor panel ───────────────────────────── */
+async function openMonitorPanel() {
+    document.getElementById('monitor-overlay').classList.add('open');
+    await loadMonitorData();
+}
+
+function closeMonitorPanel() {
+    document.getElementById('monitor-overlay').classList.remove('open');
+}
+
+async function loadMonitorData() {
+    const tbody = document.getElementById('monitor-tbody');
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:20px;font-size:12px;color:var(--faint);"><i class="fas fa-spinner fa-spin"></i> Loading…</td></tr>`;
+    try {
+        const rows = await apiFetch('/monitor');
+        tbody.innerHTML = rows.length ? rows.map(r => `<tr>
+                <td class="mono" style="font-size:11px;max-width:320px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${esc(r.query)}">${esc(r.query)}</td>
+                <td class="mono">${esc(r.calls)}</td>
+                <td class="mono">${esc(r.total_time)}</td>
+                <td class="mono">${esc(r.mean_time)}</td>
+                <td class="mono">${esc(r.rows)}</td>
+              </tr>`).join('') : `<tr><td colspan="5" style="text-align:center;color:var(--faint);padding:20px;font-size:12px;">No slow queries found.</td></tr>`;
+    } catch {
+        tbody.innerHTML = errorRow(5);
+    }
+}
+
+document.getElementById('monitor-overlay').addEventListener('click', e => {
+    if (e.target === e.currentTarget) closeMonitorPanel();
+});
 
 /* ── DDL copy ────────────────────────────── */
 function copyDDL() {

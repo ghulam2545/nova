@@ -109,3 +109,7 @@ async def get_tables_grants(schema_name: str, table_name: str):
 @router.get("/schemas/{schema_name}/tables/{table_name}/dependencies")
 async def get_tables_dependencies(schema_name: str, table_name: str):
     return database_service.get_tables_dependencies(schema_name, table_name)
+
+@router.get('/monitor')
+async def get_monitoring_status():
+    return database_service.get_monitoring_status()

@@ -104,3 +104,15 @@ class DatabaseService:
     def get_tables_relationships(self, schema_name, table_name):
         query = GET_TABLE_RELATIONSHIPS_QUERY
         return self.fetch_all(query, (schema_name, table_name))
+
+    def get_monitoring_status(self):
+        try:
+            query = GET_SLOW_QUERIES_QUERY
+            return self.fetch_all(query)
+        except Exception as e:
+            if "pg_stat_statements" in str(e):
+                raise RuntimeError(
+                    "pg_stat_statements extension is not enabled. "
+                    "Run: CREATE EXTENSION IF NOT EXISTS pg_stat_statements;"
+                ) from e
+            raise

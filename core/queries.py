@@ -253,3 +253,13 @@ GET_TABLE_RELATIONSHIPS_QUERY = """
                                   AND tc.table_name = %s
                                 ORDER BY tc.constraint_name, kcu.ordinal_position;
                                 """
+
+GET_SLOW_QUERIES_QUERY = """
+                         SELECT query,
+                                calls,
+                                ROUND(total_time::numeric, 2) AS total_time,
+                                ROUND(mean_time::numeric, 2)  AS mean_time, rows
+                         FROM pg_stat_statements
+                         ORDER BY mean_time DESC
+                             LIMIT 50;
+                         """
