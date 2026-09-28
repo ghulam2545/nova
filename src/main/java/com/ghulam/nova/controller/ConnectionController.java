@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class DbConnectionController {
+public class ConnectionController {
 
     private final DatabaseClient db;
     private final ConnectionService conn;
 
-    public DbConnectionController(DatabaseClient db, ConnectionService conn) {
+    public ConnectionController(DatabaseClient db, ConnectionService conn) {
         this.db = db;
         this.conn = conn;
     }
