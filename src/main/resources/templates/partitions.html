@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="icon" type="image/png" th:href="@{/favicon.png}"/>
+    <title>Partitions — Nova</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body class="min-h-screen" data-page="partitions">
+<div class="app-shell">
+    <div th:replace="~{fragments/layout :: sidebar}"></div>
+    <main class="main-content">
+
+        <header class="topbar">
+            <div class="topbar-left">
+                <span class="topbar-title">Partitions</span>
+                <span class="topbar-sub">Table partitioning strategy &amp; partition details</span>
+            </div>
+            <div class="topbar-actions">
+                <button class="btn btn-primary btn-sm" onclick="Nova.openModal('connect-modal')">Connect</button>
+            </div>
+        </header>
+
+        <div class="page-body">
+            <div class="card" id="part-tabs">
+                <div class="tab-bar">
+                    <div class="tab" data-tab="all">All Partitions</div>
+                    <div class="tab" data-tab="by-table">By Table</div>
+                </div>
+
+                <!-- All Partitions -->
+                <div class="tab-panel" data-tab="all">
+                    <div class="data-table-wrap">
+                        <table class="data-table">
+                            <thead>
+                            <tr>
+                                <th>Partition Name</th>
+                                <th>Parent Schema</th>
+                                <th>Parent Table</th>
+                                <th>Strategy</th>
+                                <th>Partition Key</th>
+                                <th>Bound</th>
+                                <th>Rows</th>
+                                <th>Size</th>
+                            </tr>
+                            </thead>
+                            <tbody id="part-all-body">
+                            <tr>
+                                <td colspan="8" class="text-muted" style="padding:20px;text-align:center">Not
+                                    connected
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- By Table -->
+                <div class="tab-panel" data-tab="by-table">
+                    <div class="card-header" style="display:flex;align-items:center;gap:12px;padding:14px 18px">
+                        <label class="form-label" style="margin:0;white-space:nowrap">Schema</label>
+                        <select id="part-schema-filter" class="form-input" style="max-width:180px">
+                            <option value="">All schemas</option>
+                        </select>
+                        <label class="form-label" style="margin:0;white-space:nowrap">Table</label>
+                        <select id="part-table-filter" class="form-input" style="max-width:220px">
+                            <option value="">Select a table…</option>
+                        </select>
+                        <button class="btn btn-primary btn-sm" onclick="PartPage.loadByTable()">Load</button>
+                    </div>
+                    <div class="data-table-wrap">
+                        <table class="data-table">
+                            <thead>
+                            <tr>
+                                <th>Partition Name</th>
+                                <th>Strategy</th>
+                                <th>Partition Key</th>
+                                <th>Bound</th>
+                                <th>Rows</th>
+                                <th>Size</th>
+                            </tr>
+                            </thead>
+                            <tbody id="part-table-body">
+                            <tr>
+                                <td colspan="6" class="text-muted" style="padding:20px;text-align:center">Select a
+                                    schema and table above
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div th:replace="~{fragments/layout :: connect-modal}"></div>
+<script th:src="@{/js/nova.js}"></script>
+<script th:src="@{/js/partitions.js}"></script>
+</body>
+</html>

@@ -65,5 +65,10 @@ public class FrontendController {
     public String tables() {
         return "tables";
     }
+
+    @GetMapping("/partitions")
+    public String partitions() {
+        return "partitions";
+    }
 }
 
