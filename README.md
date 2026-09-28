@@ -128,3 +128,7 @@ src/main/java/com/ghulam/nova/
 ├── exception/                  # Global exception handler
 └── helper/                     # AppSetting utility
 ```
+
+### Screenshot
+![dashboard](out/page.png)
+![swagger-docs](out/swagger-ui.png)
