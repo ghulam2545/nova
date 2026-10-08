@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const schemaFilter = document.getElementById('storage-schema-filter');
     const tableLimit = document.getElementById('storage-table-limit');
 
-    let currentSchema = '';
+    let currentSchema = 'public';
 
     // ── Load database summary ──────────────────────────────────────────────
     async function loadDbSummary() {

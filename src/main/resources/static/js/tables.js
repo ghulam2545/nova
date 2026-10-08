@@ -1,7 +1,7 @@
 (() => {
 
     let _currentPage   = 0;
-    let _currentSchema = '';
+    let _currentSchema = 'public';
     let _currentSearch = '';
     let _allRows       = [];
 
