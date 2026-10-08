@@ -31,6 +31,7 @@ public class NovaApplication {
 
     @EventListener(ApplicationReadyEvent.class)
     public void init() {
+        LOGGER(String.format("Browse the ui at: %s", AppSetting.APP_URL));
         LOGGER(String.format("Swagger docs is up at: %s", AppSetting.DOCS_URL));
         connect();
     }
