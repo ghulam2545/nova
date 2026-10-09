@@ -4,6 +4,9 @@ import java.util.List;
 
 public final class MasterData {
 
+    private static final Integer MIN_CITY_TIER = 1;
+    private static final Integer MAX_CITY_TIER = 3;
+
     public record StateSchema(String name, String code, String region) {
     }
 
@@ -36,8 +39,8 @@ public final class MasterData {
     public static CitySchema city(String name) {
         return new CitySchema(
                 name,
-                CommonUtils.nextInt(1, 20),
-                CommonUtils.nextInt(1, 3),
+                CommonUtils.nextInt(1, STATES.size()),
+                CommonUtils.nextInt(MIN_CITY_TIER, MAX_CITY_TIER),
                 CommonUtils.nextInt(6)
         );
     }
