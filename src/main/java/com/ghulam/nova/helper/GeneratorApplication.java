@@ -1,5 +1,6 @@
 package com.ghulam.nova.helper;
 
+import com.ghulam.nova.app.services.CityGenerator;
 import com.ghulam.nova.app.services.StateGenerator;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -22,6 +23,7 @@ public final class GeneratorApplication {
 
         Path dir = Path.of(OUT_DIR);
         new StateGenerator().generate(dir);
+        new CityGenerator().generate(dir);
 
         LOGGER(String.format("All CSV files written to [ %s ] directory.", OUT_DIR));
     }
